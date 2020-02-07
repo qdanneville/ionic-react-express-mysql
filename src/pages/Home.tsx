@@ -3,14 +3,28 @@ import {
   IonHeader,
   IonPage,
   IonTitle,
-  IonToolbar
+  IonToolbar,
+  IonRow,
+  IonGrid,
+  IonCol
 } from "@ionic/react";
 
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { ProjectsContext } from "../state/projects";
 
-const Home: React.FC = () => {
+import { getUserProjects } from "../services/projects";
+
+const Home: React.FC = props => {
   const { state, dispatch } = useContext(ProjectsContext);
+
+  useEffect(() => {
+    dispatch({ type: "FETCH_PROJECTS", payload: null });
+    let user = JSON.parse(window.localStorage.getItem("currentUser") || "{}");
+    if (user.id)
+      getUserProjects(user.id).then(projects => {
+        dispatch({ type: "SET_PROJECTS", payload: projects });
+      });
+  }, []);
 
   return (
     <IonPage>
@@ -20,21 +34,15 @@ const Home: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
-        The world is your oyster.
-        <p>
-          If you get lost, the{" "}
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://ionicframework.com/docs/"
-          >
-            docs
-          </a>{" "}
-          will be your guide.
-        </p>
-        <button onClick={() => dispatch({ type: "SET_PROJECTS", payload: ['1',2] })}>
-          SET_USER
-        </button>
+        <IonGrid>
+          <IonRow>
+            {state.collection
+              ? state.collection.map((item: any) => {
+                  return <IonCol key={item.id}>{item.name}</IonCol>;
+                })
+              : null}
+          </IonRow>
+        </IonGrid>
       </IonContent>
     </IonPage>
   );

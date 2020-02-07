@@ -10,7 +10,6 @@ import React, { useContext, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { AppContext } from "../state/";
 
-import contextInterface from "../state/context-interface";
 import { authenticate } from "../services/authentication";
 
 const Login: React.FC = () => {

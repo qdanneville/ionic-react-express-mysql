@@ -11,7 +11,6 @@ const authenticate = (username: string, password: string) => {
     method: "POST",
     headers: { 
       "Content-Type": "application/json",
-      'Authorization': 'Bearer ' + 'Eqsdqsdqsdkljqdjkqskjd'
     },
     body: JSON.stringify({ username, password })
   };

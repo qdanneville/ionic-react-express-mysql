@@ -12,11 +12,10 @@ const handleResponse = (response: any) => {
 
       const error = (data && data.message) || response.statusText;
       // TODO toaster Display message
-      console.log(data.message);
+      // console.log(data.message);
       return Promise.reject(error);
     }
 
-    console.log(data.message);
     return data.data;
   });
 };

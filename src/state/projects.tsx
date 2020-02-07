@@ -10,13 +10,13 @@ const projectInitialState = {
   collection: []
 };
 
-let projectsReducer = (state: any, action: { type: string, payload: any }) => {
+let projectsReducer = (state: any, action: { type: string; payload: any }) => {
   switch (action.type) {
     case "FETCH_PROJECTS": {
       return { ...state, isLoading: true };
     }
     case "SET_PROJECTS": {
-      return { ...state, collection: action.payload };
+      return { ...state, isLoading: false, collection: action.payload };
     }
   }
   return state;
